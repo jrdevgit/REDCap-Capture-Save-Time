@@ -1,0 +1,43 @@
+{
+	"name": "logSaveSubmitTime",
+
+	"namespace": "BRACE\\logSaveSubmitTime",
+
+	"authors": [
+		{
+			"name": "Jack Ren",
+			"email": "jack.ren@mcri.edu.au",
+			"institution": "Murdoch Children's Research Institute"
+		}
+	],
+
+	"description": "This module logs the most recent time a participant clicked 'submit' or 'save and return later'",
+
+	"permissions": [
+			"redcap_survey_page_top"
+		],
+	"project-settings": [
+		{
+			"name": "Settings for each instrument",
+			"key": "instrument_settings",
+			"type": "sub_settings",
+			"repeatable": true,
+			"sub_settings": [
+				{
+					"name": "Select which instrument to add the logging functionality",
+					"key": "logtime_instrument",
+					"required": true,
+					"type": "form-list"
+				},
+				{
+					"name": "Select which field to log the time",
+					"key": "logtime_field",
+					"required": true,
+					"type": "field-list"
+				}
+			]
+		}],
+    "compatibility": {
+        "redcap-version-min": "8.0.3"
+    }
+}
