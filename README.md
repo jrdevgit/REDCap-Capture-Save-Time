@@ -16,9 +16,9 @@ This External Module logs the date/time when a form is saved or submitted to a t
 	Select whether to log the time in a survey, data entry form, or both. 
 	
 * **Select the trigger to log the time:**
-	Select whether to log the time upon saving or submitting a form, or both. 
-	For Data Entry forms, "Form Submit" just applies to the Save option "Save and Mark this form as complete", while "Form Save" applies to all other save options
-	For Survey forms, "Form Submit" applies to the "Submit" button, while "Form Save" applies to the "Save & Return Later" button.
+	Select whether to log the time upon saving or submitting a form, or both. <br>
+	For Data Entry forms, "Form Submit" just applies to the Save option "Save and Mark this form as complete", while "Form Save" applies to all other save options. <br>
+	For Survey forms, "Form Submit" applies to the "Submit" button, while "Form Save" applies to the "Save & Return Later" button. <br>
 	For Survey forms, "Form Submit" only works when the form is successfully completed.
 	
 * **Select how often to log the time:**
