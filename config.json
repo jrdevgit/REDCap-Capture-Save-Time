@@ -1,5 +1,5 @@
 {
-	"name": "logSaveSubmitTime",
+	"name": "Log Form Save/Submit Time",
 
 	"namespace": "BRACE\\logSaveSubmitTime",
 
@@ -11,10 +11,10 @@
 		}
 	],
 
-	"description": "This module logs the most recent time a participant clicked 'submit' or 'save and return later'",
+	"description": "This module logs the time when a form is saved or submitted",
 
 	"permissions": [
-			"redcap_survey_page_top"
+			"redcap_save_record"
 		],
 	"project-settings": [
 		{
@@ -30,10 +30,66 @@
 					"type": "form-list"
 				},
 				{
-					"name": "Select which field to log the time",
+					"name": "Select which field to log the time. Remember to set the date/time validation for this field",
 					"key": "logtime_field",
 					"required": true,
 					"type": "field-list"
+				},				
+				{
+					"name": "Select the form type to apply the logging",
+					"key": "logtime_form",
+					"required": true,
+					"type": "radio",
+					"choices": [
+						{
+							"name": "Data Entry Form only",
+							"value": "logtime_form_dataentry"
+						},
+						{
+							"name": "Survey only",
+							"value": "logtime_form_survey"
+						},
+						{
+							"name": "Both of the above",
+							"value": "logtime_form_both"
+						}
+					]
+				},
+				{
+					"name": "Select the trigger to log the time",
+					"key": "logtime_cond",
+					"required": true,
+					"type": "radio",
+					"choices": [
+						{
+							"name": "Upon saving the form",
+							"value": "logtime_cond_save"
+						},
+						{
+							"name": "Upon submitting/completing the form",
+							"value": "logtime_cond_submit"
+						},
+						{
+							"name": "Upon saving OR submitting/completing the form",
+							"value": "logtime_cond_any"
+						}
+					]
+				},
+				{
+					"name": "Select how often to log the time",
+					"key": "logtime_freq",
+					"required": true,
+					"type": "radio",
+					"choices": [
+						{
+							"name": "Only log the time upon the first save/submit (If the field is empty)",
+							"value": "logtime_freq_first"
+						},
+						{
+							"name": "Always log the time for all saves/submits",
+							"value": "logtime_freq_all"
+						}
+					]
 				}
 			]
 		}],
