@@ -1,4 +1,4 @@
-# REDCap-Log Form Save/Submit Time
+# REDCap-Log Form Save Submit Time
 
 ## Description
 

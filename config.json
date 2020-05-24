@@ -1,12 +1,17 @@
 {
-	"name": "Log Form Save/Submit Time",
+	"name": "Log Form Save Submit Time",
 
-	"namespace": "BRACE\\logSaveSubmitTime",
+	"namespace": "BRACE\\logFormSaveSubmitTime",
 
 	"authors": [
 		{
 			"name": "Jack Ren",
 			"email": "jack.ren@mcri.edu.au",
+			"institution": "Murdoch Children's Research Institute"
+		},
+		{
+			"name": "Luke Stevens",
+			"email": "luke.stevens@mcri.edu.au",
 			"institution": "Murdoch Children's Research Institute"
 		}
 	],
@@ -62,15 +67,15 @@
 					"type": "radio",
 					"choices": [
 						{
-							"name": "Upon saving the form",
+							"name": "Form Save",
 							"value": "logtime_cond_save"
 						},
 						{
-							"name": "Upon submitting/completing the form",
+							"name": "Form Submit/Complete",
 							"value": "logtime_cond_submit"
 						},
 						{
-							"name": "Upon saving OR submitting/completing the form",
+							"name": "Form Save OR Submit/Complete",
 							"value": "logtime_cond_any"
 						}
 					]
@@ -82,7 +87,7 @@
 					"type": "radio",
 					"choices": [
 						{
-							"name": "Only log the time upon the first save/submit (If the field is empty)",
+							"name": "Only log the time upon the first save/submit (i.e. If the field is empty)",
 							"value": "logtime_freq_first"
 						},
 						{
