@@ -12,19 +12,19 @@ This External Module logs the date/time when a form is saved or submitted to a t
 * **Select which field to log the time:**
 	The field must have a date/time validation configured, the time logged will follow the validation. It is recommended to set the field to read-only.
 	
-* **Select the form type to apply the logging:**
-	Select whether to log the time in a survey, data entry form, or both. 
-	
-* **Select the trigger to log the time:**
-	Select whether to log the time upon saving or submitting a form, or both. <br>
-	For Data Entry forms, "Form Submit" just applies to the Save option "Save and Mark this form as complete", while "Form Save" applies to all other save options. <br>
-	For Survey forms, "Form Submit" applies to the "Submit" button, while "Form Save" applies to the "Save & Return Later" button. <br>
-	For Survey forms, "Form Submit" only works when the form is successfully completed.
+* **Capture time for Data Entry Form Save:**
+	Capture the time when any of the Save options are clicked in Data Entry.
+
+* **Select time capture setting in survey:**
+	Select whether to capture the time when any survey page is saved/submitted OR when the page containing the field is saved/submitted. In the following branching logics, choose the condition(s) for capturing the time (i.e. When the "Save & Return Later" button is clicked, the "Previous Page" button is clicked, or the "Next Page" or "Submit" button is clicked).
 	
 * **Select how often to log the time:**
-	Select whether to log just the first time or everytime that the form is saved/submitted. This works for surveys that allow participants to return to a completed form.
+	Select whether to log just the first time or everytime that the form is saved/submitted. This also works for surveys that have already been completed (and allow participants to return to a completed form).
 	
+## Tip
 
+* The "Submit" button on the last page of the survey is equivalent to "Next Page" button on regular survey pages. 
+  To log the time for submitting the survey, put the field on the last page of the survey and select the "Capture time for just the page containing the field" and "Capture time for Survey Next Page/Submit" options.
 	
 	
 

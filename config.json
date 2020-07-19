@@ -1,7 +1,7 @@
 {
-	"name": "Log Form Save Submit Time",
+	"name": "Capture Form Save Submit Time",
 
-	"namespace": "BRACE\\logFormSaveSubmitTime",
+	"namespace": "MCRI\\CaptureFormSaveSubmitTime",
 
 	"authors": [
 		{
@@ -16,12 +16,29 @@
 		}
 	],
 
-	"description": "This module logs the time when a form is saved or submitted",
+	"description": "This module captures the time when a form or a specific survey page is saved or submitted",
 
 	"permissions": [
 			"redcap_save_record"
 		],
+	"system-settings": [
+		{
+			"name": "System will send an email from this address if the module fails to capture the time",
+			"key": "captime_system_email",
+			"type": "text",
+			"required": true
+		},
+		{
+			"name": "System will CC the email to this address if the module fails to capture the time",
+			"key": "captime_cc_email",
+			"type": "text",
+			"repeatable": true
+		}],
 	"project-settings": [
+		{
+			"name": "Send an email to this address if something goes wrong with capturing the time",
+			"key": "captime_email"
+		},
 		{
 			"name": "Settings for each instrument",
 			"key": "instrument_settings",
@@ -29,70 +46,106 @@
 			"repeatable": true,
 			"sub_settings": [
 				{
-					"name": "Select which instrument to add the logging functionality",
-					"key": "logtime_instrument",
+					"name": "Select which instrument to add the capture functionality",
+					"key": "captime_instrument",
 					"required": true,
 					"type": "form-list"
 				},
 				{
-					"name": "Select which field to log the time. Remember to set the date/time validation for this field",
-					"key": "logtime_field",
+					"name": "Select which field to capture the time. Remember to set the date/time validation for this field",
+					"key": "captime_field",
 					"required": true,
 					"type": "field-list"
-				},				
+				},
 				{
-					"name": "Select the form type to apply the logging",
-					"key": "logtime_form",
+					"name": "Capture time for Data Entry Form Save",
+					"key": "captime_form_save",
+					"type": "checkbox"
+				},
+				{
+					"name": "Select time capture setting in survey",
+					"key": "captime_survey_setting",
 					"required": true,
 					"type": "radio",
 					"choices": [
 						{
-							"name": "Data Entry Form only",
-							"value": "logtime_form_dataentry"
+							"name": "Capture time for any survey pages",
+							"value": "captime_survey_setting_all"
 						},
 						{
-							"name": "Survey only",
-							"value": "logtime_form_survey"
-						},
-						{
-							"name": "Both of the above",
-							"value": "logtime_form_both"
+							"name": "Capture time for just the page containing the field",
+							"value": "captime_survey_setting_spec"
 						}
 					]
 				},
 				{
-					"name": "Select the trigger to log the time",
-					"key": "logtime_cond",
-					"required": true,
-					"type": "radio",
-					"choices": [
-						{
-							"name": "Form Save",
-							"value": "logtime_cond_save"
-						},
-						{
-							"name": "Form Submit/Complete",
-							"value": "logtime_cond_submit"
-						},
-						{
-							"name": "Form Save OR Submit/Complete",
-							"value": "logtime_cond_any"
-						}
-					]
+					"name": "Capture time for Survey Save & Return Later",
+					"key": "captime_survey_save",
+					"type": "checkbox",
+					"branchingLogic": {
+						"field": "captime_survey_setting",
+						"value": "captime_survey_setting_all"
+					}
 				},
 				{
-					"name": "Select how often to log the time",
-					"key": "logtime_freq",
+					"name": "Capture time for Survey Next Page/Submit",
+					"key": "captime_survey_submit",
+					"type": "checkbox",
+					"branchingLogic": {
+						"field": "captime_survey_setting",
+						"value": "captime_survey_setting_all"
+					}
+				},
+				{
+					"name": "Capture time for Survey Previous Page",
+					"key": "captime_survey_prev",
+					"type": "checkbox",
+					"branchingLogic": {
+						"field": "captime_survey_setting",
+						"value": "captime_survey_setting_all"
+					}
+				},
+				{
+					"name": "Capture time for specific Survey Page Save & Return Later",
+					"key": "captime_survey_pagesave",
+					"type": "checkbox",
+					"branchingLogic": {
+						"field": "captime_survey_setting",
+						"value": "captime_survey_setting_spec"
+					}
+				},
+				{
+					"name": "Capture time for specific Survey Page Next Page/Submit",
+					"key": "captime_survey_pagesubmit",
+					"type": "checkbox",
+					"branchingLogic": {
+						"field": "captime_survey_setting",
+						"value": "captime_survey_setting_spec"
+					}
+				},
+				
+				{
+					"name": "Capture time for specific Survey Page Previous Page",
+					"key": "captime_survey_pageprev",
+					"type": "checkbox",
+					"branchingLogic": {
+						"field": "captime_survey_setting",
+						"value": "captime_survey_setting_spec"
+					}
+				},
+				{
+					"name": "Select how often to capture the time",
+					"key": "captime_freq",
 					"required": true,
 					"type": "radio",
 					"choices": [
 						{
-							"name": "Only log the time upon the first save/submit (i.e. If the field is empty)",
-							"value": "logtime_freq_first"
+							"name": "Only capture the time upon the first save/submit (i.e. If the field is empty)",
+							"value": "captime_freq_first"
 						},
 						{
-							"name": "Always log the time for all saves/submits",
-							"value": "logtime_freq_all"
+							"name": "Always capture the time upon saves/submits",
+							"value": "captime_freq_all"
 						}
 					]
 				}
