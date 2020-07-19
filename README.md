@@ -2,18 +2,15 @@
 
 ## Description
 
-This External Module captures the date/time when a form is saved or submitted to a text field. The format of the date/time will match with the validation of the text field.
+This External Module captures the date/time when a form is saved or submitted to a text field. The format of the date/time will match with the validation of the text field. 
 
-## Configuration
+## Notes
 
-* **Select which instrument to add the time capture functionality:**
-	Each form can have more than one field set up if desired (eg. One field to capture the time when a form is saved, another to capture when a form is submitted).
-	
 * **Select which field to capture the time:**
-	The field must have a date/time validation configured, the time logged will follow the validation. It is recommended to set the field to read-only.
+	The field must be a text field and have a date/time validation configured, the time logged will follow the validation. It is recommended to set the field to read-only.
 	
 * **Capture time for Data Entry Form Save:**
-	Capture the time when any of the Save options are clicked in Data Entry.
+	If ticked, the module will capture the time when any of the Save options are clicked in Data Entry.
 
 * **Select time capture setting in survey:**
 	Select whether to capture the time when any survey page is saved/submitted OR when the page containing the field is saved/submitted. In the following branching logics, choose the condition(s) for capturing the time (i.e. When the "Save & Return Later" button is clicked, the "Previous Page" button is clicked, or the "Next Page" or "Submit" button is clicked).
