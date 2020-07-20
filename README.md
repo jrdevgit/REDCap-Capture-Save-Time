@@ -18,10 +18,10 @@ This External Module captures the date/time when a form is saved or submitted to
 * **Select how often to capture the time:**
 	Select whether to capture just the first time or everytime that the form is saved/submitted. This also works for surveys that have already been completed (and allow participants to return to a completed form).
 	
-## Tip
+## Tips
 
 * The "Submit" button on the last page of the survey is equivalent to "Next Page" button on regular survey pages. 
   To capture the time for submitting the survey, put the field on the last page of the survey and select the "Capture time for just the page containing the field" and "Capture time for Survey Next Page/Submit" options.
 	
-	
+* The "Delete data for THIS FORM only" button in Data Entry counts as a save, and will therefore capture the time into the specified text field if the "Capture time for Data Entry Form Save" option is enabled. To prevent this, please untick this option first before deleting the data.
 

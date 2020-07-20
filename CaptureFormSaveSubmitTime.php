@@ -21,10 +21,9 @@ class CaptureFormSaveSubmitTime extends AbstractExternalModule {
 					if (($setting['captime_survey_setting'] === 'captime_survey_setting_all' && (($setting['captime_survey_save'] == true && $_POST['submit-action'] == 'submit-btn-savereturnlater') || ($setting['captime_survey_submit'] == true && $_POST['submit-action'] === 'submit-btn-saverecord') || ($setting['captime_survey_prev'] == true && $_POST['submit-action'] === 'submit-btn-saveprevpage'))) || ($setting['captime_survey_setting'] === 'captime_survey_setting_spec' && (($setting['captime_survey_pagesave'] == true && $_POST['submit-action'] === 'submit-btn-savereturnlater' && isset($_POST[$capTimeField])) || ($setting['captime_survey_pagesubmit'] == true && $_POST['submit-action'] === 'submit-btn-saverecord' && $_POST[$instrument.'_complete'] == 2 && isset($_POST[$capTimeField])) || ($setting['captime_survey_pageprev'] == true && $_POST['submit-action'] === 'submit-btn-saveprevpage' && isset($_POST[$capTimeField]))))) {
 						$capTimeFreq = $setting['captime_freq'];
 						$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
-						print_r($capTimeField);
 					}
 				} elseif (is_null($survey_hash)) {
-					if ($setting['captime_form_save'] == true && isset($_POST['submit-action'])) {
+					if ($setting['captime_form_save'] == true && isset($_POST['submit-action']) && $_POST['submit-action'] != 'submit-btn-deleteform') {
 						$capTimeFreq = $setting['captime_freq'];
 						$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
 					}
