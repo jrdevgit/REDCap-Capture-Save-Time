@@ -81,56 +81,33 @@
 				{
 					"name": "Capture time for Survey Save & Return Later",
 					"key": "captime_survey_save",
-					"type": "checkbox",
-					"branchingLogic": {
-						"field": "captime_survey_setting",
-						"value": "captime_survey_setting_all"
-					}
+					"type": "checkbox"
 				},
 				{
 					"name": "Capture time for Survey Next Page/Submit",
 					"key": "captime_survey_submit",
-					"type": "checkbox",
-					"branchingLogic": {
-						"field": "captime_survey_setting",
-						"value": "captime_survey_setting_all"
-					}
+					"type": "checkbox"
 				},
 				{
 					"name": "Capture time for Survey Previous Page",
 					"key": "captime_survey_prev",
-					"type": "checkbox",
-					"branchingLogic": {
-						"field": "captime_survey_setting",
-						"value": "captime_survey_setting_all"
-					}
+					"type": "checkbox"
 				},
 				{
-					"name": "Capture time for specific Survey Page Save & Return Later",
-					"key": "captime_survey_pagesave",
+					"name": "Capture time only when the survey is submitted with a 'Completed' status",
+					"key": "captime_comp",
 					"type": "checkbox",
 					"branchingLogic": {
-						"field": "captime_survey_setting",
-						"value": "captime_survey_setting_spec"
-					}
-				},
-				{
-					"name": "Capture time for specific Survey Page Next Page/Submit",
-					"key": "captime_survey_pagesubmit",
-					"type": "checkbox",
-					"branchingLogic": {
-						"field": "captime_survey_setting",
-						"value": "captime_survey_setting_spec"
-					}
-				},
-				
-				{
-					"name": "Capture time for specific Survey Page Previous Page",
-					"key": "captime_survey_pageprev",
-					"type": "checkbox",
-					"branchingLogic": {
-						"field": "captime_survey_setting",
-						"value": "captime_survey_setting_spec"
+						"conditions": [
+							{
+								"field": "captime_survey_setting",
+								"value": "captime_survey_setting_spec"
+							},
+							{
+								"field": "captime_survey_submit",
+								"value": "1"
+							}
+						]
 					}
 				},
 				{
