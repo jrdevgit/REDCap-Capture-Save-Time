@@ -23,8 +23,9 @@ This External Module captures the date/time when a form is saved or submitted to
 * The **"Submit"** button on the last page of the survey is equivalent to **"Next Page"** button on regular survey pages. 
   To capture the time for submitting the survey, put the field on the last page of the survey and select the **"Capture time for just the page containing the field"** and **"Capture time for Survey Next Page/Submit"** options.
   
-* To make capturing the time of submitting a survey more accurate, an additional checkbox asking for **"Capture time only when the survey is submitted with a 'Completed' status"** will appear when both the following conditions are met:
-	* **Select time capture setting in survey** = Capture time for just the page containing the field. When this field is ticked, the module will only capture the time of submitting the form when it has been successfully submitted.
+* To make capturing the time of submitting a survey more accurate, an additional checkbox asking for **"Capture time only when the survey is submitted with a 'Completed' status"** will appear. When this field is ticked, the module will only capture the time of submitting the form when it has been successfully submitted.
+  This field will only appear when both the following conditions are met:
+	* **Select time capture setting in survey** = Capture time for just the page containing the field. 
 	* **Capture time for Survey Next Page/Submit** = True/Ticked.
  
 	
