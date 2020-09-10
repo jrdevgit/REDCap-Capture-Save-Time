@@ -1,12 +1,12 @@
 <?php
 
-namespace MCRI\CaptureFormSaveSubmitTime;
+namespace MCRI\CaptureSaveTime;
 
 use ExternalModules\AbstractExternalModule;
 use ExternalModules\ExternalModules;
 use REDCap;
 
-class CaptureFormSaveSubmitTime extends AbstractExternalModule {
+class CaptureSaveTime extends AbstractExternalModule {
 	
 	public function redcap_survey_complete($project_id, $record=null, $instrument, $event_id, $group_id=null, $survey_hash=null, $response_id=null, $repeat_instance=1) {
 		$email_to = AbstractExternalModule::getProjectSetting('captime_email');

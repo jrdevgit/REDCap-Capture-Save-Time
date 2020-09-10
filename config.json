@@ -1,7 +1,7 @@
 {
-	"name": "Capture Form Save Submit Time",
+	"name": "Capture Save Time",
 
-	"namespace": "MCRI\\CaptureFormSaveSubmitTime",
+	"namespace": "MCRI\\CaptureSaveTime",
 
 	"authors": [
 		{
@@ -16,7 +16,7 @@
 		}
 	],
 
-	"description": "This module captures the time when a form or a specific survey page is saved or submitted",
+	"description": "This External Module captures the date/time when a Data Entry Form and/or Survey is saved/submitted into a text field. The format of the date/time will match with the datetime validation of the text field. <br><br>The user can specify the conditions that triggers the module to capture the time.<br><br>Clicking on \"Click here for advanced settings for surveys\" unlocks additional conditions. The <b>Select time capture setting in survey:</b> setting allows user to specify whether to capture the time <b>hen the survey is saved on any page</b> or <b>just the page that contains the field</b>. The user can then select the <b>Survey buttons (Previous page, Next page/Submit, Save & Return Later)</b> that will trigger the time capturing.Finally, the user can specify <b>whether to capture the time when the survey is first saved/submitted</b>(i.e. if the field is empty) or <b>for every saves/submits</b>. ",
 
 	"permissions": [
 			"redcap_survey_complete",
