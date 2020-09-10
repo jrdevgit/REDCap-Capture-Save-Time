@@ -1,4 +1,4 @@
-# REDCap Capture Form Save Submit Time
+# REDCap Capture Save Time
 
 ## Description
 
