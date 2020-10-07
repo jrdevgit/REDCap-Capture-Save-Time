@@ -18,7 +18,7 @@ There are plenty of options to the user to customize their conditions for captur
 
 ## Notes
 
-* It is recommended to add make the field READONLY and/or HIDDEN to prevent respondants interfering with the field.
+* It is recommended to add make the field READONLY and/or HIDDEN to prevent respondents interfering with the field.
 
 * If you wish to capture the time when a particular survey page has been saved, don't forget to put the field on the page that you would like to capture the time for.
 
