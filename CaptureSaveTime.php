@@ -15,9 +15,14 @@ class CaptureSaveTime extends AbstractExternalModule {
 		$instrument_settings = $this->getSubSettings('instrument_settings');
 		foreach($instrument_settings as $setting) {
 			if ($setting['captime_instrument'] == $instrument && $setting['captime_survey_complete'] == true) {
-				$capTimeField = $setting['captime_field'];
-				$capTimeFreq = $setting['captime_freq'];
-				$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
+				$logic = $setting['captime_logic'];
+				if (empty($logic) || REDCap::evaluateLogic($logic, $project_id, $record) === True) { 
+					$capTimeField = $setting['captime_field'];
+					$capTimeFreq = $setting['captime_freq'];
+					$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
+				} elseif (is_null(REDCap::evaluateLogic($logic, $project_id, $record))) {
+					REDCap::logEvent('ERROR in Capture Save Time external module: Branching Logic', 'Please double check the branching logic: '.$logic, '', $record, $event_id, $project_id);
+				}
 			}
 		}
 	}
@@ -32,14 +37,30 @@ class CaptureSaveTime extends AbstractExternalModule {
 			if ($setting['captime_instrument'] == $instrument) {
 				$capTimeField = $setting['captime_field'];
 				if (!is_null($survey_hash)) {
-					if ($setting['captime_adv_setting'] == '1' && (($setting['captime_survey_setting'] === 'captime_survey_setting_all' && (($setting['captime_survey_save'] == true && $_POST['submit-action'] == 'submit-btn-savereturnlater') || ($setting['captime_survey_submit'] == true && $_POST['submit-action'] === 'submit-btn-saverecord') || ($setting['captime_survey_prev'] == true && $_POST['submit-action'] === 'submit-btn-saveprevpage'))) || ($setting['captime_survey_setting'] === 'captime_survey_setting_spec' && (($setting['captime_survey_save'] == true && $_POST['submit-action'] === 'submit-btn-savereturnlater' && isset($_POST[$capTimeField])) || ($setting['captime_survey_submit'] == true && $_POST['submit-action'] === 'submit-btn-saverecord' && isset($_POST[$capTimeField])) || ($setting['captime_survey_prev'] == true && $_POST['submit-action'] === 'submit-btn-saveprevpage' && isset($_POST[$capTimeField])))))) {
-						$capTimeFreq = $setting['captime_freq'];
-						$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
+					if (($setting['captime_survey_save'] === true && $_POST['submit-action'] === 'submit-btn-savereturnlater') ||
+					($setting['captime_survey_submit'] === true && $_POST['submit-action'] === 'submit-btn-saverecord') ||
+					($setting['captime_survey_prev'] === true && $_POST['submit-action'] === 'submit-btn-saveprevpage') ||
+					($setting['captime_survey_save_page'] === true && $_POST['submit-action'] === 'submit-btn-savereturnlater' && isset($_POST[$capTimeField])) ||
+					($setting['captime_survey_submit_page'] === true && $_POST['submit-action'] === 'submit-btn-saverecord' && isset($_POST[$capTimeField])) ||
+					($setting['captime_survey_prev_page'] === true && $_POST['submit-action'] === 'submit-btn-saveprevpage' && isset($_POST[$capTimeField]))) {
+						$logic = $setting['captime_logic'];
+						if (empty($logic) || REDCap::evaluateLogic($logic, $project_id, $record) === True) {
+							$capTimeFreq = $setting['captime_freq'];
+							$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
+						} elseif (is_null(REDCap::evaluateLogic($logic, $project_id, $record))) {
+							REDCap::logEvent('ERROR in Capture Save Time external module: Branching Logic', 'Please double check the branching logic: '.$logic, '', $record, $event_id, $project_id);
+						}
 					}
 				} elseif (is_null($survey_hash)) {
-					if (($setting['captime_form_save'] == true && isset($_POST['submit-action']) && $_POST['submit-action'] != 'submit-btn-deleteform') || ($setting['captime_form_complete'] == true && $_POST['submit-action'] === 'submit-btn-savecompresp')) {
-						$capTimeFreq = $setting['captime_freq'];
-						$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
+					if (($setting['captime_form_save'] === true && $_POST['submit-action'] !== 'submit-btn-savecompresp' && count($_POST) > 3) || 
+					($setting['captime_form_survey_complete'] === true && $_POST['submit-action'] === 'submit-btn-savecompresp')) {
+						$logic = $setting['captime_logic'];
+						if (empty($logic) || REDCap::evaluateLogic($logic, $project_id, $record) === True) {
+							$capTimeFreq = $setting['captime_freq'];
+							$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc_list, $project_id, $record, $event_id);
+						} elseif (is_null(REDCap::evaluateLogic($logic, $project_id, $record))) {
+							REDCap::logEvent('ERROR in Capture Save Time external module: Branching Logic', 'Please double check the branching logic: '.$logic, '', $record, $event_id, $project_id);
+						}
 					}
 				}
 			}
@@ -60,14 +81,14 @@ class CaptureSaveTime extends AbstractExternalModule {
 				$timeNow = date('H:i');
 			}
 			if (isset($timeNow) == false){
-				$title = "ERROR in Capture Form Save/Submit Time external module: Time could not be obtained";
+				$title = "ERROR in Capture Save Time external module: Time could not be obtained";
 				$detail = "record=$record, event=$event_id, field=$field\nTime could not be obtained, please ensure the field is a text field with time validation configured";
 				REDCap::logEvent($title, $detail, '', $record, $event_id, $project_id);
 				REDCap::email($email, $email_from, $title, $detail, implode(",", $email_cc_list));
 			} else {
 				$saveResult = REDCap::saveData(intval($project_id), 'array', array($record => array($event_id => array($field => $timeNow))));
 				if (count($saveResult['errors'])>0) {
-					$title = "ERROR in Capture Form Save/Submit Time external module: Failed to capture time";
+					$title = "ERROR in Capture Save Time external module: Failed to capture time";
 					$detail = "record=$record, event=$event_id, field=$field, value=$timeNow <br>saveResult=".print_r($saveResult, true);
 					REDCap::logEvent($title, $detail, '', $record, $event_id, $project_id);
 					REDCap::email($email_to, $email_from, $title, $detail, implode(",", $email_cc_list));

@@ -16,7 +16,7 @@
 		}
 	],
 
-	"description": "This External Module captures the date/time when a Data Entry Form and/or Survey is saved/submitted into a text field. The format of the date/time will match with the datetime validation of the text field. <br><br>The user can specify the conditions that triggers the module to capture the time.<br><br>Clicking on \"Click here for advanced settings for surveys\" unlocks additional conditions. The <b>Select time capture setting in survey:</b> setting allows user to specify whether to capture the time <b>hen the survey is saved on any page</b> or <b>just the page that contains the field</b>. The user can then select the <b>Survey buttons (Previous page, Next page/Submit, Save & Return Later)</b> that will trigger the time capturing.Finally, the user can specify <b>whether to capture the time when the survey is first saved/submitted</b>(i.e. if the field is empty) or <b>for every saves/submits</b>. ",
+	"description": "This External Module captures the date/time when a Data Entry Form and/or Survey is saved/submitted. The captured time will be stored in a selected text field, while the format of the date/time will match with the datetime validation of the text field.",
 
 	"permissions": [
 			"redcap_survey_complete",
@@ -53,93 +53,60 @@
 					"type": "form-list"
 				},
 				{
-					"name": "Select which field to capture the time. Remember to set the date/time validation for this field",
+					"name": "Select which field to capture the time. <b>Remember to set the date/time validation for this field</b>",
 					"key": "captime_field",
 					"required": true,
 					"type": "field-list"
 				},
 				{
-					"name": "Capture time for Data Entry Form Save",
+					"name": "Write the branching logic for capturing time. If no logic is required, leave this field blank",
+					"key": "captime_logic",
+					"type": "text"
+				},
+				{
+					"name": "Capture time for <b>Data Entry Form</b> - <u>Save</u>",
 					"key": "captime_form_save",
 					"type": "checkbox"
 				},
 				{
-					"name": "Capture time for Data Entry Form Complete",
-					"key": "captime_form_complete",
+					"name": "Capture time for <b>Data Entry Form</b> - <u>Mark Survey as Complete</u>",
+					"key": "captime_form_survey_complete",
 					"type": "checkbox"
 				},
 				{
-					"name": "Capture time for Survey Completion (i.e. after submitting the survey successfully)",
+					"name": "Capture time for <b>Survey</b> - <u>Completion</u> (i.e. after submitting the survey successfully)",
 					"key": "captime_survey_complete",
 					"type": "checkbox"
 				},
 				{
-					"name": "Click here for advanced settings for surveys:",
-					"key": "captime_adv_setting",
+					"name": "Capture time for <b>Survey</b> - <u>Save & Return Later</u>",
+					"key": "captime_survey_save",
 					"type": "checkbox"
 				},
 				{
-					"name": "Select time capture setting in survey",
-					"key": "captime_survey_setting",
-					"required": true,
-					"type": "radio",
-					"choices": [
-						{
-							"name": "Capture time for any survey pages",
-							"value": "captime_survey_setting_all"
-						},
-						{
-							"name": "Capture time for just the page containing the field",
-							"value": "captime_survey_setting_spec"
-						}
-					],
-					"branchingLogic": {
-						"conditions": [
-							{
-								"field": "captime_adv_setting",
-								"value": "1"
-							}
-						]
-					}
-				},
-				{
-					"name": "Capture time for Survey Save & Return Later",
-					"key": "captime_survey_save",
-					"type": "checkbox",
-					"branchingLogic": {
-						"conditions": [
-							{
-								"field": "captime_adv_setting",
-								"value": "1"
-							}
-						]
-					}
-				},
-				{
-					"name": "Capture time for Survey Next Page/Submit",
+					"name": "Capture time for <b>Survey</b> - <u>Next Page</u>",
 					"key": "captime_survey_submit",
-					"type": "checkbox",
-					"branchingLogic": {
-						"conditions": [
-							{
-								"field": "captime_adv_setting",
-								"value": "1"
-							}
-						]
-					}
+					"type": "checkbox"
 				},
 				{
-					"name": "Capture time for Survey Previous Page",
+					"name": "Capture time for <b>Survey</b> - <u>Previous Page</u>",
 					"key": "captime_survey_prev",
-					"type": "checkbox",
-					"branchingLogic": {
-						"conditions": [
-							{
-								"field": "captime_adv_setting",
-								"value": "1"
-							}
-						]
-					}
+					"type": "checkbox"
+				},
+				{
+					"name": "Capture time for <b>Survey</b> - <u>Save & Return Later</u> (Only for the page that the field is on)",
+					"key": "captime_survey_save_page",
+					"type": "checkbox"
+				},
+				{
+					"name": "Capture time for <b>Survey</b> - <u>Next Page</u> (Only for the page that the field is on)",
+					"key": "captime_survey_submit_page",
+					"type": "checkbox"
+				},
+				{
+					"name": "Capture time for <b>Survey</b> - <u>Previous Page</u> (Only for the page that the field is on)",
+					"key": "captime_survey_prev_page",
+					"type": "checkbox"
 				},
 				{
 					"name": "Select how often to capture the time",
