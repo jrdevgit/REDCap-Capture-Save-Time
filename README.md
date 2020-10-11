@@ -10,16 +10,16 @@ There are plenty of options to the user to customize their conditions for captur
 
 * Capture time for Survey - Completion
 
-* Capture time for Survey - Save & Return Later, Next Page, and/or Previous Page for all pages
+* Capture time for Survey - Save & Return Later, Next Page, and/or Previous Page for **all survey pages**
 
-* Capture time for Survey - Save & Return Later, Next Page, and/or Previous Page only for the page containing the field.
+* Capture time for Survey - Save & Return Later, Next Page, and/or Previous Page only for **the page containing the field**
 
-* Capture time 
+The user can also choose how often to capture the time, as well as specify email address/addresses where an error message will be sent if any errors occur.
 
 ## Notes
 
 * It is recommended to add make the field READONLY and/or HIDDEN to prevent respondents interfering with the field.
 
-* If you wish to capture the time when a particular survey page has been saved, don't forget to put the field on the page that you would like to capture the time for.
+* If you wish to capture the time **when a particular survey page has been saved**, don't forget to put the field on the page that you would like to capture the time for.
 
 * Don't forget to add the time validation for the text field you wish to capture the time.
