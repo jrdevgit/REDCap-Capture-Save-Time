@@ -2,7 +2,7 @@
 
 ## Description
 
-This External Module captures the date/time when a Data Entry Form and/or Survey is saved/submitted. The captured time will be stored in a selected text field, while the format of the date/time will match with the datetime validation of the text field. If any error occurs, an email will be sent to a mailbox specified by the user, notifying that the module has failed to capture the time.
+This External Module captures the date/time when a Data Entry Form and/or Survey is saved/submitted. The captured time will be stored in a selected text field, while the format of the date/time will match with the datetime validation of the text field.
 <br><br>
 There are plenty of options to the user to customize their conditions for capturing the time. Options include:
 
@@ -14,7 +14,7 @@ There are plenty of options to the user to customize their conditions for captur
 
 * Capture time for Survey - Save & Return Later, Next Page, and/or Previous Page only for **the page containing the field**
 
-The user can also choose how often to capture the time, as well as specify email address/addresses where an error message will be sent if any errors occur.
+The user can also choose how often to capture the time, as well as specify email address/addresses to receive error messages if any errors occur.
 
 ## Notes
 
