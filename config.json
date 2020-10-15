@@ -28,12 +28,8 @@
 			"key": "captime_system_email",
 			"type": "text",
 			"required": true
-		},
-		{
-			"name": "System will CC the email to this address if the module fails to capture the time",
-			"key": "captime_cc_email",
-			"type": "text"
-		}],
+		}
+		],
 	"project-settings": [
 		{
 			"name": "Send an email to this address in case an error occurs with capturing the time",

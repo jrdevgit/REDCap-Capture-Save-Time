@@ -11,7 +11,6 @@ class CaptureSaveTime extends AbstractExternalModule {
 	public function redcap_survey_complete($project_id, $record=null, $instrument, $event_id, $group_id=null, $survey_hash=null, $response_id=null, $repeat_instance=1) {
 		$email_to = AbstractExternalModule::getProjectSetting('captime_email');
 		$email_from = AbstractExternalModule::getSystemSetting('captime_system_email');
-		$email_cc = AbstractExternalModule::getSystemSetting('captime_cc_email');
 		$instrument_settings = $this->getSubSettings('instrument_settings');
 		foreach($instrument_settings as $setting) {
 			if ($setting['captime_instrument'] == $instrument && $setting['captime_survey_complete'] == true) {
@@ -19,12 +18,12 @@ class CaptureSaveTime extends AbstractExternalModule {
 				if (empty($logic) || REDCap::evaluateLogic($logic, $project_id, $record) === True) { 
 					$capTimeField = $setting['captime_field'];
 					$capTimeFreq = $setting['captime_freq'];
-					$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc, $project_id, $record, $event_id);
+					$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $project_id, $record, $event_id);
 				} elseif (is_null(REDCap::evaluateLogic($logic, $project_id, $record))) {
 					$title = 'ERROR in Capture Save Time external module: Branching Logic';
 					$detail = 'Please double check the branching logic: "'.$logic.'" for the Capture Save Time external module.';
 					REDCap::logEvent('ERROR in Capture Save Time external module: Branching Logic', 'Please double check the branching logic: '.$logic, '', $record, $event_id, $project_id);
-					REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail, $email_cc);
+					REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail);
 				}
 			}
 		}
@@ -34,7 +33,6 @@ class CaptureSaveTime extends AbstractExternalModule {
 	public function redcap_save_record($project_id, $record=null, $instrument, $event_id, $group_id=null, $survey_hash=null, $response_id=null, $repeat_instance=1) {
 		$email_to = AbstractExternalModule::getProjectSetting('captime_email');
 		$email_from = AbstractExternalModule::getSystemSetting('captime_system_email');
-		$email_cc = AbstractExternalModule::getSystemSetting('captime_cc_email');
 		$instrument_settings = $this->getSubSettings('instrument_settings');
 		foreach($instrument_settings as $setting) {
 			if ($setting['captime_instrument'] == $instrument) {
@@ -49,12 +47,12 @@ class CaptureSaveTime extends AbstractExternalModule {
 						$logic = $setting['captime_logic'];
 						if (is_null($logic) || REDCap::evaluateLogic($logic, $project_id, $record) === True) {
 							$capTimeFreq = $setting['captime_freq'];
-							$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc, $project_id, $record, $event_id);
+							$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $project_id, $record, $event_id);
 						} elseif (is_null(REDCap::evaluateLogic($logic, $project_id, $record))) {
 							$title = 'ERROR in Capture Save Time external module: Branching Logic';
 							$detail = 'Please double check the branching logic: "'.$logic.'" for the Capture Save Time external module.';
 							REDCap::logEvent('ERROR in Capture Save Time external module: Branching Logic', 'Please double check the branching logic: '.$logic, '', $record, $event_id, $project_id);
-							REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail, $email_cc);
+							REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail);
 						}
 					}
 				} elseif (is_null($survey_hash)) {
@@ -63,12 +61,12 @@ class CaptureSaveTime extends AbstractExternalModule {
 						$logic = $setting['captime_logic'];
 						if (is_null($logic) || REDCap::evaluateLogic($logic, $project_id, $record) === True) {
 							$capTimeFreq = $setting['captime_freq'];
-							$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $email_cc, $project_id, $record, $event_id);
+							$this->capTime($capTimeField, $capTimeFreq, $email_from, $email_to, $project_id, $record, $event_id);
 						} elseif (is_null(REDCap::evaluateLogic($logic, $project_id, $record))) {
 							$title = 'ERROR in Capture Save Time external module: Branching Logic';
 							$detail = 'Please double check the branching logic: "'.$logic.'" for the Capture Save Time external module.';
 							REDCap::logEvent('ERROR in Capture Save Time external module: Branching Logic', 'Please double check the branching logic: '.$logic, '', $record, $event_id, $project_id);
-							REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail, $email_cc);
+							REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail);
 						}
 					}
 				}
@@ -76,7 +74,7 @@ class CaptureSaveTime extends AbstractExternalModule {
 		}
 	}
 	
-	protected function capTime($field, $freq, $email_from, $email_to, $email_cc, $project_id, $record, $event_id) {
+	protected function capTime($field, $freq, $email_from, $email_to, $project_id, $record, $event_id) {
 		$timeFormat = REDCap::getDataDictionary($project_id, 'array', 'false')[$field]['text_validation_type_or_show_slider_number'];
 		$timePrev = REDCap::getData(intval($project_id), 'array', $record, $field)[$record][$event_id][$field];
 		if (($freq === 'captime_freq_first' && $timePrev == null) || $freq === 'captime_freq_all') {
@@ -93,14 +91,14 @@ class CaptureSaveTime extends AbstractExternalModule {
 				$title = "ERROR in Capture Save Time external module: Time could not be obtained";
 				$detail = "record=$record, event=$event_id, field=$field\nTime could not be obtained, please ensure the field is a text field with time validation configured";
 				REDCap::logEvent($title, $detail, '', $record, $event_id, $project_id);
-				REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail, $email_cc);
+				REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail);
 			} else {
 				$saveResult = REDCap::saveData(intval($project_id), 'array', array($record => array($event_id => array($field => $timeNow))));
 				if (count($saveResult['errors'])>0) {
 					$title = "ERROR in Capture Save Time external module: Failed to capture time";
 					$detail = "record=$record, event=$event_id, field=$field, value=$timeNow <br>saveResult=".print_r($saveResult, true);
 					REDCap::logEvent($title, $detail, '', $record, $event_id, $project_id);
-					REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail, $email_cc);
+					REDCap::email(str_replace(" ","",implode(",", $email_to)), $email_from, $title, $detail);
 				}
 			}
 		}
