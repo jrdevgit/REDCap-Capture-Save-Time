@@ -20,6 +20,6 @@ The user can also choose how often to capture the time, as well as specify email
 
 * It is recommended to add make the field READONLY and/or HIDDEN to prevent respondents from interfering with the field.
 
-* If you wish to capture the time **when a particular survey page has been saved**, don't forget to put the field on the page that you would like to capture the time for.
+* If you wish to capture the time **when a particular survey page has been saved**, tick the options with labels '(Only for the page that the field is on)'. Don't forget to put the field on the page that you would like to capture the time for.
 
 * Don't forget to add the time validation for the text field you wish to capture the time.
