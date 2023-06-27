@@ -8,7 +8,7 @@ use REDCap;
 
 class CaptureSaveTime extends AbstractExternalModule {
 	
-	public function redcap_survey_complete($project_id, $record=null, $instrument, $event_id, $group_id=null, $survey_hash=null, $response_id=null, $repeat_instance=1) {
+	public function redcap_survey_complete( int $project_id, string $record = NULL, string $instrument, int $event_id, int $group_id = NULL, string $survey_hash, int $response_id = NULL, int $repeat_instance = 1 ) {
 		$email_to = AbstractExternalModule::getProjectSetting('captime_email');
 		$email_from = AbstractExternalModule::getSystemSetting('captime_system_email');
 		$instrument_settings = $this->getSubSettings('instrument_settings');
@@ -30,7 +30,7 @@ class CaptureSaveTime extends AbstractExternalModule {
 	}
 
 
-	public function redcap_save_record($project_id, $record=null, $instrument, $event_id, $group_id=null, $survey_hash=null, $response_id=null, $repeat_instance=1) {
+	public function redcap_save_record( int $project_id, string $record = NULL, string $instrument, int $event_id, int $group_id = NULL, string $survey_hash = NULL, int $response_id = NULL, int $repeat_instance = 1 ) {
 		$email_to = AbstractExternalModule::getProjectSetting('captime_email');
 		$email_from = AbstractExternalModule::getSystemSetting('captime_system_email');
 		$instrument_settings = $this->getSubSettings('instrument_settings');
